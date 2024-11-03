@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\ProcessDataJob;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/run-jobs', function () {
+    for ($i = 1; $i <= 5; $i++) {
+        ProcessDataJob::dispatch("Data ke-$i");
+    }
+    return 'Jobs diproses secara paralel';
 });
